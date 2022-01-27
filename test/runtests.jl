@@ -10,10 +10,17 @@ import PairCorrelation: rfftkspace2
 end
 
 @testset "normalization" begin
-    p = PairAutoCorrelation(ones(10, 10), 1, 1)
+    a = ones(10, 10)
+    p = PairAutoCorrelation(a, 1, 1)
     @test p(0) == 1
-    p = PairAutoCorrelation(ones(10, 10), 4, 5)
+    p = PairAutoCorrelation(a, 4, 5)
     @test p(0) == 1
-    p = PairAutoCorrelation(2 * ones(10, 10), 4, 5)
+    p = PairAutoCorrelation(2a, 4, 5)
     @test 2^2 == p(0)
+    p = PairRadialCorrelation(a, a, 1, 1)
+    @test p(0) == 1
+    p = PairRadialCorrelation(a, a, 4, 5)
+    @test p(0) == 1
+    p = PairRadialCorrelation(2a, a, 4, 5)
+    @test 2 == p(0)
 end
